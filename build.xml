@@ -1,0 +1,54 @@
+<project name="SignFactory" basedir="." default="main">
+    <property name="main-class" value="main"/>
+
+    <property name="src.dir"     value="src"/>
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+    <property name="resources.dir" value="${src.dir}/resources"/>
+    <property name="exec.dir"    value="exec"/>
+    <property name="jar.signed" value="${jar.dir}/${ant.project.name}.jar"/>
+    <property name="jar.unsigned" value="${jar.dir}/${ant.project.name}-unsigned.jar"/>
+
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <echo message="${ant.project.name}:${ant.project.default}"/>
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.unsigned}" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+            <fileset dir="${resources.dir}"/>
+        </jar>
+    </target>
+
+    <target name="check-keystore">
+        <available file=".keystore" property="keystore.present"/>
+    </target>
+
+    <target name="sign-password" depends="check-keystore" if="keystore.present">
+        <input message="Please enter keystore password:" addproperty="keystore.password" />
+    </target>
+   
+    <target name="sign" depends="sign-password,jar" if="keystore.present">
+        <signjar alias="maker" keystore=".keystore" storepass="${keystore.password}" tsaurl="http://timestamp.digicert.com" jar="${jar.unsigned}" signedjar="${jar.signed}"/>
+    </target> 
+
+    <target name="run" depends="jar">
+        <mkdir dir="${exec.dir}"/>
+        <java jar="${jar.unsigned}" dir="${exec.dir}" fork="true"/>
+    </target>
+
+    <target name="clean-build" depends="clean,jar"/>
+
+    <target name="main" depends="clean,run"/>
+</project>
