@@ -199,7 +199,7 @@ public class main {
 				out = new FileWriter(scad);
 				out.write("use <base.scad>;\n"+s+"();");
 				out.close();
-				if (args.length == 1 && args[0].wquals("dxf") {
+				if (args.length == 1 && args[0].equals("dxf")) {
 					Process p = Runtime.getRuntime().exec("openscad -o "+dxf.getName()+" "+scad.getName());
 					p.waitFor();
 					scad.delete();
