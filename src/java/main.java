@@ -27,9 +27,12 @@ public class main {
 	private HashMap<Location,HashMap<PostFace,HashMap<String,Sign.Direction>>> posts = new HashMap<Location,HashMap<PostFace,HashMap<String,Sign.Direction>>>();
 	private void post(Location location, PostFace side, String[] signs, Sign.Direction direction) {
 		for (String sign : signs) {
-			Post.addSign(location.name().replace("_"," "),side.name(),need(sign,direction));
+			post(location,side,sign,direction);
 		}
 	}	
+	private void post(Location location, PostFace side, String sign, Sign.Direction direction) {
+		Post.addSign(location.name().replace("_"," "),side.name(),need(sign,direction));
+	}
 	private Sign need(String text, Sign.Direction direction) {
 		Sign sign =new MakeSign(text,direction);
 		Needed.add(sign);
@@ -49,47 +52,27 @@ public class main {
 		String[] other = new String[] {"Other Attractions"};
 		String[] backs = new String[] {"Aluminum Smelting","Blacksmity","Electric Bikes","EVs & Auto Hacking"};
 
-		post(Location.South_Lakes_Enterence,PostFace.North,slhs,Sign.Direction.right);
-		post(Location.South_Lakes_Enterence,PostFace.East,lhms,Sign.Direction.left);
-		post(Location.South_Lakes_Enterence,PostFace.East,backn,Sign.Direction.left);
-		post(Location.South_Lakes_Enterence,PostFace.East,backs,Sign.Direction.left);
-		post(Location.South_Lakes_Enterence,PostFace.East,food,Sign.Direction.left);
-
-		post(Location.Hughes_Enterence,PostFace.North,slhs,Sign.Direction.ahead);
-		post(Location.Hughes_Enterence,PostFace.North,backn,Sign.Direction.ahead);
-		post(Location.Hughes_Enterence,PostFace.North,backs,Sign.Direction.ahead);
-		post(Location.Hughes_Enterence,PostFace.North,food,Sign.Direction.ahead);
-		post(Location.Hughes_Enterence,PostFace.South,lhms,Sign.Direction.ahead);
-
-		post(Location.Hughes_Enterence,PostFace.East,slhs,Sign.Direction.right);
-		post(Location.Hughes_Enterence,PostFace.East,backn,Sign.Direction.right);
-		post(Location.Hughes_Enterence,PostFace.East,backs,Sign.Direction.right);
-		post(Location.Hughes_Enterence,PostFace.East,food,Sign.Direction.right);
-		post(Location.Hughes_Enterence,PostFace.West,lhms,Sign.Direction.right);
-
-		post(Location.Hughes_Enterence,PostFace.West,slhs,Sign.Direction.left);
-		post(Location.Hughes_Enterence,PostFace.West,backn,Sign.Direction.left);
-		post(Location.Hughes_Enterence,PostFace.West,backs,Sign.Direction.left);
-		post(Location.Hughes_Enterence,PostFace.West,food,Sign.Direction.left);
-		post(Location.Hughes_Enterence,PostFace.East,lhms,Sign.Direction.left);
-
-		post(Location.Path_Intersection,PostFace.North,slhs,Sign.Direction.ahead);
-		post(Location.Path_Intersection,PostFace.South,backn,Sign.Direction.ahead);
-		post(Location.Path_Intersection,PostFace.North,backs,Sign.Direction.right);
-		post(Location.Path_Intersection,PostFace.North,food,Sign.Direction.right);
-		post(Location.Path_Intersection,PostFace.North,lhms,Sign.Direction.right);
-		post(Location.Path_Intersection,PostFace.South,backs,Sign.Direction.left);
-		post(Location.Path_Intersection,PostFace.South,food,Sign.Direction.left);
-		post(Location.Path_Intersection,PostFace.South,lhms,Sign.Direction.left);
-		post(Location.Path_Intersection,PostFace.East,slhs,Sign.Direction.left);
-		post(Location.Path_Intersection,PostFace.East,lhms,Sign.Direction.right);
-
-		post(Location.Path_End,PostFace.South,backn,Sign.Direction.ahead);
-		post(Location.Path_End,PostFace.South,other,Sign.Direction.right);
-		post(Location.Path_End,PostFace.North,backs,Sign.Direction.ahead);
-		post(Location.Path_End,PostFace.North,other,Sign.Direction.left);
-		post(Location.Path_End,PostFace.West,backn,Sign.Direction.right);
-		post(Location.Path_End,PostFace.West,backs,Sign.Direction.left);
+		post(Location.South_Lakes_Enterence,PostFace.North,"Fiber Alley",Sign.Direction.right);
+		post(Location.South_Lakes_Enterence,PostFace.North,"Gaming",Sign.Direction.right);
+		post(Location.South_Lakes_Enterence,PostFace.North,"Woodworks",Sign.Direction.right);
+		post(Location.South_Lakes_Enterence,PostFace.North,"Drone Zone",Sign.Direction.right);
+		post(Location.South_Lakes_Enterence,PostFace.East,"Sustainability Village",Sign.Direction.left);
+		post(Location.South_Lakes_Enterence,PostFace.East,"Programming",Sign.Direction.left);
+		post(Location.South_Lakes_Enterence,PostFace.East,"Trebuchet",Sign.Direction.left);
+		post(Location.South_Lakes_Enterence,PostFace.East,"Blacksmith",Sign.Direction.left);
+		post(Location.South_Lakes_Enterence,PostFace.East,"Auto Hacking",Sign.Direction.left);
+		post(Location.Hughes_Enterence,PostFace.West,"Robots & ROV",Sign.Direction.left);
+		post(Location.Hughes_Enterence,PostFace.West,"Makerspaces",Sign.Direction.left);
+		post(Location.Hughes_Enterence,PostFace.West,"Trebuchet",Sign.Direction.left);
+		post(Location.Hughes_Enterence,PostFace.West,"Young Makers",Sign.Direction.right);
+		post(Location.Hughes_Enterence,PostFace.South,"Speaker Series",Sign.Direction.ahead);
+		post(Location.Hughes_Enterence,PostFace.South,"Take Apart Activity",Sign.Direction.ahead);
+		post(Location.Path_Intersection,PostFace.West,backn,Sign.Direction.right);
+		post(Location.Path_Intersection,PostFace.West,backs,Sign.Direction.right);
+		post(Location.Path_Intersection,PostFace.East,backn,Sign.Direction.right);
+		post(Location.Path_Intersection,PostFace.East,backs,Sign.Direction.right);
+		post(Location.Path_End,PostFace.East,backs,Sign.Direction.right);
+		post(Location.Path_End,PostFace.East,backn,Sign.Direction.left);
 
 
 		have("Young Makers",Sign.Direction.ahead);
