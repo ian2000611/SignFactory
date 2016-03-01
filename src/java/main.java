@@ -41,7 +41,7 @@ public class main {
 		Have.add(new InventorySign(text,direction));
 	}
 
-	public main() {
+	public main(String[] args) {
 		String[] slhs = new String[] {"Fiber Alley","Gaming","Young Makers","Robots & ROV","Bicycles","Rockets/Space","Makerspaces","Science","Woodworks","Drone Zone","Electric Avenue","Creativity Corner","3D Printing Village"};
 		String[] lhms = new String[] {"Sustainability Village","3D Printing","Young Makers","Programming","Speaker Series","Take Apart Activity"};
 		String[] backn = new String[] {"Trebuchet"};
@@ -199,10 +199,10 @@ public class main {
 				out = new FileWriter(scad);
 				out.write("use <base.scad>;\n"+s+"();");
 				out.close();
-				Process p = Runtime.getRuntime().exec("openscad -o "+dxf.getName()+" "+scad.getName());
-				p.waitFor();
-				scad.delete();
-				if (false) {
+				if (args.length == 1 && args[0].wquals("dxf") {
+					Process p = Runtime.getRuntime().exec("openscad -o "+dxf.getName()+" "+scad.getName());
+					p.waitFor();
+					scad.delete();
 					InputStream is = p.getInputStream();
 					InputStream es = p.getErrorStream();
 					while (is.available() > 0)
@@ -218,7 +218,7 @@ public class main {
 	}
 
 	public static void main(String[] args) {
-		new main();
+		new main(args);
 	}
 
 	private ArrayList<String> printSigns(ArrayList<Sign> signs) {
