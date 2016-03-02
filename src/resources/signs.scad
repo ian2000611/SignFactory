@@ -1,7 +1,8 @@
 signheight = 90;
 longsign = 910;
 shortsign = 680;
-fontsize = 50;
+font = [["Stencil",50],["Know Your Product",45]];
+fontchoice=font[1];
 
 screwdiameter = 5;
 screwinset = 15;
@@ -12,14 +13,13 @@ signgap=0.001;
 left=1;
 ahead=0;
 right=-1;
-short=0;
-long=1;
+shortsign=680;
+longsign=910;
 
 module sign(sign) {
     text=sign[0];
     direction=sign[1];
-    size=sign[2];
-    length=intlength(size);
+    length=sign[2];
 	difference() {
 		union() {
 			square([length,signheight],true);
@@ -39,12 +39,9 @@ module sign(sign) {
 			translate([0,i*(signheight/2-screwoffset-screwdiameter/2)])
 			circle(d=screwdiameter);
 		}
-        translate([signheight/4*-direction,0])
-		text(text,size=fontsize,font="Stencil",halign="center",valign="center");
+		text(text,size=fontchoice[1],font=fontchoice[0],halign="center",valign="center");
 	}
 }
-
-function intlength(i) = shortsign+abs(i)%2*(longsign-shortsign);
 
 module sheet(SIGNS) {
     signs=len(SIGNS)-1;

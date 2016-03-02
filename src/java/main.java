@@ -24,123 +24,143 @@ public class main {
 		East,
 		West;
 	}
-	private HashMap<Location,HashMap<PostFace,HashMap<String,Sign.Direction>>> posts = new HashMap<Location,HashMap<PostFace,HashMap<String,Sign.Direction>>>();
-	private void post(Location location, PostFace side, String[] signs, Sign.Direction direction) {
+	private void post(Location location, PostFace side, String[] signs, String direction) {
+		post(location,side,signs,direction,"longsign");
+	}
+	private void post(Location location, PostFace side, String[] signs, String direction, String length) {
 		for (String sign : signs) {
-			post(location,side,sign,direction);
+			post(location,side,sign,direction,length);
 		}
 	}	
-	private void post(Location location, PostFace side, String sign, Sign.Direction direction) {
-		Post.addSign(location.name().replace("_"," "),side.name(),need(sign,direction));
+	private void post(Location location, PostFace side, String sign, String direction) {
+		post(location,side,sign,direction,"longsign");
 	}
-	private Sign need(String text, Sign.Direction direction) {
-		Sign sign =new MakeSign(text,direction);
+	private void post(Location location, PostFace side, String sign, String direction, String length) {
+		Post.addSign(location.name().replace("_"," "),side.name(),need(sign,direction,length));
+	}
+	private Sign need(String text, String direction) {
+		return need(text,direction,"longsign");
+	}
+	private Sign need(String text, String direction,String length) {
+		Sign sign =new MakeSign(text,direction,length);
 		Needed.add(sign);
 		return sign;
 	}
 
 	private ArrayList<Sign> Have = new ArrayList<Sign>();
-	private void have(String text, Sign.Direction direction) {
-		Have.add(new InventorySign(text,direction));
+	private void have(String text, String direction) {
+		have(text,direction,"longsign");
+	}
+	private void have(String text, String direction, String length) {
+		Have.add(new InventorySign(text,direction,length));
 	}
 
 	public main(String[] args) {
-		String[] slhs = new String[] {"Fiber Alley","Gaming","Young Makers","Robots & ROV","Bicycles","Rockets/Space","Makerspaces","Science","Woodworks","Drone Zone","Electric Avenue","Creativity Corner","3D Printing Village"};
-		String[] lhms = new String[] {"Sustainability Village","3D Printing","Young Makers","Programming","Speaker Series","Take Apart Activity"};
-		String[] backn = new String[] {"Trebuchet"};
-		String[] food = new String[] {"Food Trucks"};
-		String[] other = new String[] {"Other Attractions"};
-		String[] backs = new String[] {"Aluminum Smelting","Blacksmity","Electric Bikes","EVs & Auto Hacking"};
+		post(Location.South_Lakes_Enterence,PostFace.South,"Fiber Alley","right");
+		post(Location.South_Lakes_Enterence,PostFace.South,"Gaming","right","shortsign");
+		post(Location.South_Lakes_Enterence,PostFace.South,"Woodworks","right","shortsign");
+		post(Location.South_Lakes_Enterence,PostFace.South,"Drone Zone","right","shortsign");
 
-		post(Location.South_Lakes_Enterence,PostFace.North,"Fiber Alley",Sign.Direction.right);
-		post(Location.South_Lakes_Enterence,PostFace.North,"Gaming",Sign.Direction.right);
-		post(Location.South_Lakes_Enterence,PostFace.North,"Woodworks",Sign.Direction.right);
-		post(Location.South_Lakes_Enterence,PostFace.North,"Drone Zone",Sign.Direction.right);
-		post(Location.South_Lakes_Enterence,PostFace.East,"Sustainability Village",Sign.Direction.left);
-		post(Location.South_Lakes_Enterence,PostFace.East,"Programming",Sign.Direction.left);
-		post(Location.South_Lakes_Enterence,PostFace.East,"Trebuchet",Sign.Direction.left);
-		post(Location.South_Lakes_Enterence,PostFace.East,"Blacksmith",Sign.Direction.left);
-		post(Location.South_Lakes_Enterence,PostFace.East,"Auto Hacking",Sign.Direction.left);
-		post(Location.Hughes_Enterence,PostFace.West,"Robots & ROV",Sign.Direction.left);
-		post(Location.Hughes_Enterence,PostFace.West,"Makerspaces",Sign.Direction.left);
-		post(Location.Hughes_Enterence,PostFace.West,"Trebuchet",Sign.Direction.left);
-		post(Location.Hughes_Enterence,PostFace.West,"Young Makers",Sign.Direction.right);
-		post(Location.Hughes_Enterence,PostFace.South,"Speaker Series",Sign.Direction.ahead);
-		post(Location.Hughes_Enterence,PostFace.South,"Take Apart Activity",Sign.Direction.ahead);
-		post(Location.Path_Intersection,PostFace.West,backn,Sign.Direction.right);
-		post(Location.Path_Intersection,PostFace.West,backs,Sign.Direction.right);
-		post(Location.Path_Intersection,PostFace.East,backn,Sign.Direction.right);
-		post(Location.Path_Intersection,PostFace.East,backs,Sign.Direction.right);
-		post(Location.Path_End,PostFace.East,backs,Sign.Direction.right);
-		post(Location.Path_End,PostFace.East,backn,Sign.Direction.left);
-
-
-		have("Young Makers",Sign.Direction.ahead);
-		have("Young Makers",Sign.Direction.ahead);
-		have("Robotics",Sign.Direction.ahead);
-		have("Robotics",Sign.Direction.ahead);
-
-
-		have("Technology Square",Sign.Direction.left);
-		have("Technology Square",Sign.Direction.left);
-		have("Technology Square",Sign.Direction.left);
-		have("Bike Lane",Sign.Direction.left);
-		have("Bike Lane",Sign.Direction.left);
-		have("Flight Path",Sign.Direction.left);
-		have("Flight Path",Sign.Direction.left);
-		have("Fabrication Village",Sign.Direction.left);
-		have("Fabrication Village",Sign.Direction.left);
-		have("Creativity Lane",Sign.Direction.left);
-		have("Creativity Lane",Sign.Direction.left);
-		have("3D Printing Village",Sign.Direction.left);
-		have("3D Printing Village",Sign.Direction.left);
-		have("Story Loom",Sign.Direction.left);
-		have("Story Loom",Sign.Direction.left);
-		have("Woodworking Way",Sign.Direction.left);
-		have("Woodworking Way",Sign.Direction.left);
-		have("Story Zone",Sign.Direction.left);
-		have("Science Labs",Sign.Direction.left);
-		have("Science Labs",Sign.Direction.left);
-		have("Maker Spaces",Sign.Direction.left);
-		have("Maker Spaces",Sign.Direction.left);
-		have("Maker Spaces",Sign.Direction.left);
-		have("Drone Zone",Sign.Direction.left);
-		have("Engineering Row",Sign.Direction.left);
-		have("Engineering Row",Sign.Direction.left);
-		have("Engineering Row",Sign.Direction.left);
-		have("Creativity Corner",Sign.Direction.left);
-		have("Creativity Corner",Sign.Direction.left);
-		have("Creativity Corner",Sign.Direction.left);
-		have("Creativity Central",Sign.Direction.left);
+		post(Location.South_Lakes_Enterence,PostFace.East,"Sustainability Village","left");
+		post(Location.South_Lakes_Enterence,PostFace.East,"Programming","left","shortsign");
+		post(Location.South_Lakes_Enterence,PostFace.East,"Trebuchet","left","shortsign");
+		post(Location.South_Lakes_Enterence,PostFace.East,"Blacksmith","left","shortsign");
+		post(Location.South_Lakes_Enterence,PostFace.East,"EVs - Auto Hacking","left");
+		
+		post(Location.Hughes_Enterence,PostFace.West,"Robots & ROV","left","shortsign");
+		post(Location.Hughes_Enterence,PostFace.West,"Makerspaces","left","shortsign");
+		post(Location.Hughes_Enterence,PostFace.West,"Trebuchet","left","shortsign");
+		post(Location.Hughes_Enterence,PostFace.West,"Young Makers","right");
+		
+		post(Location.Hughes_Enterence,PostFace.North,"Speaker Series","ahead","shortsign");
+		post(Location.Hughes_Enterence,PostFace.North,"Take Apart Activity","ahead");
+		
+		post(Location.Path_Intersection,PostFace.South,"Trebuchet","right","shortsign");
+		post(Location.Path_Intersection,PostFace.South,"Aluminum Smelting","right");
+		post(Location.Path_Intersection,PostFace.South,"Blacksmith","right","shortsign");
+		post(Location.Path_Intersection,PostFace.South,"Electric Bikes","right","shortsign");
+		post(Location.Path_Intersection,PostFace.South,"EVs - Auto Hacking","right");
+		
+		post(Location.Path_Intersection,PostFace.North,"Trebuchet","left","shortsign");
+		post(Location.Path_Intersection,PostFace.North,"Aluminum Smelting","left");
+		post(Location.Path_Intersection,PostFace.North,"Blacksmith","left","shortsign");
+		post(Location.Path_Intersection,PostFace.North,"Electric Bikes","left","shortsign");
+		post(Location.Path_Intersection,PostFace.North,"EVs - Auto Hacking","left");
+		
+		post(Location.Path_Intersection,PostFace.West,"Trebuchet","right","shortsign");
+		post(Location.Path_Intersection,PostFace.West,"Aluminum Smelting","left");
+		post(Location.Path_Intersection,PostFace.West,"Blacksmith","left","shortsign");
+		post(Location.Path_Intersection,PostFace.West,"Electric Bikes","left","shortsign");
+		post(Location.Path_Intersection,PostFace.West,"EVs - Auto Hacking","left");
+		
 
 
-		have("Sustainability Village",Sign.Direction.right);
-		have("Sustainability Village",Sign.Direction.right);
-		have("Upcycle",Sign.Direction.right);
-		have("Upcycle",Sign.Direction.right);
-		have("Blacksmith",Sign.Direction.right);
-		have("Fiber Alley",Sign.Direction.right);
-		have("Fiber Alley",Sign.Direction.right);
-		have("Fiber Alley",Sign.Direction.right);
-		have("Young Makers",Sign.Direction.right);
-		have("Cinemas",Sign.Direction.right);
-		have("Cinemas",Sign.Direction.right);
-		have("Speakers",Sign.Direction.right);
-		have("Speakers",Sign.Direction.right);
-		have("Take Apart",Sign.Direction.right);
-		have("Take Apart",Sign.Direction.right);
-		have("Activity Ticket Village",Sign.Direction.right);
-		have("Activity Ticket Village",Sign.Direction.right);
-		have("Robotics Row",Sign.Direction.right);
-		have("Robotics Row",Sign.Direction.right);
-		have("Robotics Row",Sign.Direction.right);
-		have("Food Trucks",Sign.Direction.right);
-		have("Sustainability Village",Sign.Direction.right);
+		have("Young Makers","ahead");
+		have("Young Makers","ahead");
+		have("Robotics","ahead");
+		have("Robotics","ahead");
 
-		have("Sustainability Village",Sign.Direction.right);
-		have("Sustainability Village",Sign.Direction.right);
-		have("Upcycle",Sign.Direction.right);
-		have("Upcycle",Sign.Direction.right);
+
+		have("Technology Square","left");
+		have("Technology Square","left");
+		have("Technology Square","left");
+		have("Bike Lane","left");
+		have("Bike Lane","left");
+		have("Flight Path","left");
+		have("Flight Path","left");
+		have("Fabrication Village","left");
+		have("Fabrication Village","left");
+		have("Creativity Lane","left");
+		have("Creativity Lane","left");
+		have("3D Printing Village","left");
+		have("3D Printing Village","left");
+		have("Story Loom","left");
+		have("Story Loom","left");
+		have("Woodworking Way","left");
+		have("Woodworking Way","left");
+		have("Story Zone","left");
+		have("Science Labs","left");
+		have("Science Labs","left");
+		have("Maker Spaces","left");
+		have("Maker Spaces","left");
+		have("Maker Spaces","left");
+		have("Drone Zone","left");
+		have("Engineering Row","left");
+		have("Engineering Row","left");
+		have("Engineering Row","left");
+		have("Creativity Corner","left");
+		have("Creativity Corner","left");
+		have("Creativity Corner","left");
+		have("Creativity Central","left");
+
+
+		have("Sustainability Village","right");
+		have("Sustainability Village","right");
+		have("Upcycle","right");
+		have("Upcycle","right");
+		have("Blacksmith","right");
+		have("Fiber Alley","right");
+		have("Fiber Alley","right");
+		have("Fiber Alley","right");
+		have("Young Makers","right");
+		have("Cinemas","right");
+		have("Cinemas","right");
+		have("Speakers","right");
+		have("Speakers","right");
+		have("Take Apart","right");
+		have("Take Apart","right");
+		have("Activity Ticket Village","right");
+		have("Activity Ticket Village","right");
+		have("Robotics Row","right");
+		have("Robotics Row","right");
+		have("Robotics Row","right");
+		have("Food Trucks","right");
+		have("Sustainability Village","right");
+
+		have("Sustainability Village","right");
+		have("Sustainability Village","right");
+		have("Upcycle","right");
+		have("Upcycle","right");
 
 		ArrayList<Sign> Extra = new ArrayList<Sign>();
 
@@ -173,7 +193,14 @@ public class main {
 			input.close();
 			FileWriter out = new FileWriter(scad,true);
 			out.write(sheet.remove(0));
+			int i = 0;
+			out.write("\n\nmodule proof() { //make dxf\n");
+			for (String s:sheet) { 
+				out.write("\ttranslate([0,"+(i++)+"*-6*(signheight+5)]) " +s+"();\n");
+			}
+			out.write("}");
 			out.close();
+			sheet.add("proof");
 			for (String s:sheet) {
 				scad = new File(s+".scad");
 				File dxf = new File(s+".dxf");
